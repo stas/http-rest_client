@@ -15,7 +15,7 @@ module HTTP
       # @return [ResponseError] instance
       def initialize(message, data)
         super(message)
-        @response_data = data.as_json if data
+        @response_data = data
       end
     end
   end

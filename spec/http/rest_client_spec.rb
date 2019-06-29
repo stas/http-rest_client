@@ -22,8 +22,13 @@ RSpec.describe HTTP::RestClient do
       extend HTTP::RestClient::DSL
 
       endpoint 'https://httpbin.org'
-      path 'status'
+      path 'anything'
       content_type 'application/json'
+      accept 'application/json'
+
+      def self.error_response?(_, _)
+        true
+      end
     end
   end
 
@@ -59,11 +64,10 @@ RSpec.describe HTTP::RestClient do
 
   context 'error handling' do
     it do
-      expect { error_client.request(:post, error_client.uri('422')) }
-        .to raise_error(
-          HTTP::RestClient::ResponseError,
-          /422 Unprocessable Entity/
-        )
+      expect { error_client.request(:get, error_client.uri) }
+        .to raise_error(HTTP::RestClient::ResponseError, /200 OK/) do |err|
+          expect(err.response_data).to be_a(Hash)
+        end
     end
   end
 end
