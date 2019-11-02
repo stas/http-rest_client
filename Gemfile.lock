@@ -65,7 +65,7 @@ GEM
       unf_ext
     unf_ext (0.0.7.6)
     unicode-display_width (1.6.0)
-    yard (0.9.19)
+    yard (0.9.20)
     yardstick (0.9.9)
       yard (~> 0.8, >= 0.8.7.2)
 
