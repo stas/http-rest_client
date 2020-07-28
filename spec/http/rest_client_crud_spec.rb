@@ -18,7 +18,7 @@ RSpec.describe HTTP::RestClient::CRUD do
 
   let(:uid) { SecureRandom.uuid }
 
-  context '#find' do
+  describe '#find' do
     it do
       response = resource.find(uid, param: 1)
 
@@ -30,7 +30,7 @@ RSpec.describe HTTP::RestClient::CRUD do
     end
   end
 
-  context '#delete' do
+  describe '#delete' do
     it do
       response = resource.delete(uid)
 
@@ -41,7 +41,7 @@ RSpec.describe HTTP::RestClient::CRUD do
     end
   end
 
-  context '#update' do
+  describe '#update' do
     it do
       response = resource.update(uid, data: true)
 
@@ -53,7 +53,7 @@ RSpec.describe HTTP::RestClient::CRUD do
     end
   end
 
-  context '#create' do
+  describe '#create' do
     it do
       response = resource.create(data: true)
 
@@ -65,7 +65,7 @@ RSpec.describe HTTP::RestClient::CRUD do
     end
   end
 
-  context '#all' do
+  describe '#all' do
     it do
       response = resource.all(page: 1)
 
