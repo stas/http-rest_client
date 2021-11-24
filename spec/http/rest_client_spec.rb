@@ -17,6 +17,12 @@ RSpec.describe HTTP::RestClient do
     Class.new(base_client)
   end
 
+  let(:dead_proxy_client) do
+    Class.new(base_client) do
+      proxy 'localhost', 0
+    end
+  end
+
   let(:error_client) do
     Class.new(OpenStruct) do
       extend HTTP::RestClient::DSL
@@ -68,6 +74,16 @@ RSpec.describe HTTP::RestClient do
         .to raise_error(HTTP::RestClient::ResponseError, /200 OK/) do |err|
           expect(err.response_data).to be_a(Hash)
         end
+    end
+  end
+
+  context 'proxy handling' do
+    it do
+      expect { dead_proxy_client.request(:get, error_client.uri) }
+        .to raise_error(
+          HTTP::ConnectionError,
+          /Address not available - connect\(2\) for "localhost" port 0/
+        )
     end
   end
 end

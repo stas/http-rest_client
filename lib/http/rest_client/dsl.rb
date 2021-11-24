@@ -49,6 +49,21 @@ module HTTP
         superclass.respond_to?(:path) ? superclass.path : nil
       end
 
+      # Defines the client proxy hosts. Inheritable-safe
+      #
+      # Expects an array with host, port, username and password.
+      # The last two are optional.
+      #
+      # @param value [String] the endpoint URI path.
+      # @return [String]
+      def proxy(*value)
+        @proxy = value if value && !value.empty?
+
+        return @proxy if @proxy
+
+        superclass.respond_to?(:proxy) ? superclass.proxy : nil
+      end
+
       # Sets the client expected HTTP request content type
       #
       # @param type [String] the full mime-type name.
@@ -93,6 +108,7 @@ module HTTP
       # @return parsed response, can be a [String], a [Hash] or an [Array]
       def request(verb, uri, options = {})
         client = HTTP::Client.new(headers: headers)
+        client = client.via(*proxy) if proxy
         handle_response(client.request(verb, uri, options))
       end
 
