@@ -82,7 +82,7 @@ RSpec.describe HTTP::RestClient do
       expect { dead_proxy_client.request(:get, error_client.uri) }
         .to raise_error(
           HTTP::ConnectionError,
-          /Address not available - connect\(2\) for "localhost" port 0/
+          /connect\(2\) for "localhost" port 0/
         )
     end
   end
