@@ -2,6 +2,10 @@ require:
   - rubocop-performance
   - rubocop-rspec
 
+AllCops:
+  SuggestExtensions: false
+  NewCops: enable
+
 RSpec:
   Enabled: true
 
@@ -21,7 +25,14 @@ Style/StringLiterals:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-Metrics/LineLength:
+Style/OpenStructUse:
+  Exclude:
+    - 'spec/**/*_spec.rb'
+
+Style/CaseLikeIf:
+  Enabled: false
+
+Layout/LineLength:
   Max: 80
 
 Metrics/BlockLength:

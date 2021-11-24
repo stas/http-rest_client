@@ -1,3 +1,4 @@
+require 'ostruct'
 require 'spec_helper'
 
 RSpec.describe HTTP::RestClient do
@@ -13,8 +14,7 @@ RSpec.describe HTTP::RestClient do
   end
 
   let(:client) do
-    Class.new(base_client) do
-    end
+    Class.new(base_client)
   end
 
   let(:error_client) do
